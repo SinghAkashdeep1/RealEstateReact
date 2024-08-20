@@ -1,0 +1,77 @@
+.carousel {
+    height: 100vh; 
+    padding-inline: 60px;
+}
+
+.carousel-image {
+    object-fit: cover; 
+    height: 100%; 
+}
+
+.tagline-container {
+    position: absolute; /* Position the tagline container absolutely */
+    top: 15%;         /* Adjust the distance from the top as needed */
+    left: 20%;         /* Center it horizontally */
+    transform: translateX(-50%); /* Adjust for the width of the element */
+    background:transparent; /* Semi-transparent background */
+    
+    padding: 10px 20px; /* Padding for the container */
+    border-radius: 5px; /* Optional: Rounded corners */
+    z-index: 10;       /* Ensure it appears above the carousel */
+    text-align: left; /* Align text to the right */
+}
+
+.tagline-container h1 {
+    font-weight: 800;  
+    font-size: 3rem; 
+    margin: 0;        
+}
+
+.search-filter-container {
+    position: absolute; /* Position the search filter container absolutely */
+    top: 60%;          /* Adjust the distance from the top as needed */
+    left: 30%;         /* Center it horizontally */
+    transform: translate(-50%, -50%); /* Centering using transform */
+    width: 80%;       /* Set the width to 80% of the container */
+    max-width: 600px; /* Optional: Set a maximum width */
+    padding: 20px;    /* Padding for the container */
+    border-radius: 10px; /* Rounded corners */
+    z-index: 10;      /* Ensure it appears above the carousel */
+    text-align: left; /* Align text to the left */
+    background: rgba(255, 255, 255, 0.8); /* White background with some transparency */
+    backdrop-filter: blur(10px); /* Blur effect for the background */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
+.search-input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Adjust width as necessary */
+}
+
+.select-dropdown {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: -10px;
+    border-radius: 4px;
+
+}
+
+.search-container-title{
+    background-color: transparent;
+    color: rgb(5, 5, 5);
+    font-size: 1.2rem;
+}
+
+.search-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+

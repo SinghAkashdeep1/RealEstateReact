@@ -1,0 +1,148 @@
+
+
+.sidebar{
+  width: 20rem;
+  width : fit-content;
+}
+.custom-dropdown-toggle {
+ background-color:#ebebcf!important;
+ width: fit-content;
+}
+
+.sidebarSide{
+ background-color: #010001;
+}
+.accordion-header button{
+ background-color:#EFEFDF!important;
+ height: 40px;
+ border: rounded-3;
+ 
+}
+
+.main-header{
+ background-color: #f1f1e2;
+}
+.accordianLogo{
+   background-color: #f1f1e2;
+
+}
+
+.main-footer{
+ background-color: #f1f1e2;
+ height:8%;
+}
+
+.custom-container{
+ height: 9rem;
+ width: 14rem;
+}
+
+.dashboardTileRow{
+ background-color: rgb(20, 20, 20);
+}
+
+.admin-profile{
+ height: 23rem;
+ width: 15rem;
+ background-color:#EFEFDF!important;
+
+}
+
+.profile-icon{
+ height: 5rem;
+ width: 5rem;
+
+}
+
+
+
+
+.layout {
+ height: 100vh;
+}
+
+.sidebar {
+ width: 20rem; 
+ flex: 0 0 18rem; 
+ /* background-color: #f0f0f0; */
+ overflow-y: auto; 
+}
+
+.main-content {
+ flex-grow: 1;
+ overflow-y: auto;
+ padding: 5px; 
+}
+
+.content-wrapper {
+ flex-grow: 1; 
+ overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+ .sidebar {
+   display: none; 
+ }
+}
+
+
+/* .custom-dropdown .dropdown-menu-right {
+ right: 200px !important; 
+ left: auto !important;
+} */
+.hover-effect:hover {
+ background-color: #333;
+}
+
+.hover-effect .accordion-header {
+ transition: background-color 0.3s ease;
+}
+
+.hover-effect .accordion-header:hover {
+ background-color: #555;
+}
+
+.LogoContainer{
+   justify-content: center;
+   align-items: center;
+}
+
+.adminLogo{
+    height: 30px;
+    width: 33px;
+    margin: 40px 3px 13px 3px;
+}
+
+.accordionHeader {
+  padding: 0.5rem 0.75rem; /* Adjust padding */
+  font-size: 0.9rem; /* Adjust font size */
+}
+
+.accordion-header .icon {
+  font-size: 1rem; /* Smaller icon size */
+}
+
+/* Optional: You can also reduce padding for the body */
+.accordion-body {
+  padding: 0.5rem 0.5rem; /* Adjust body padding */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

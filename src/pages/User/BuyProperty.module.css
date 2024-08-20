@@ -1,0 +1,294 @@
+.container {
+    height:fit-content;
+    width: 100%;
+    padding: 0 60px;
+  }
+  
+  .containerTitle {
+    padding: 2rem;
+    color: #072744;
+    background-color: #f0f2f3;
+  }
+  
+  .PropertyDeatilSidebar {
+    height: 100%;
+    width: 60%;
+
+  }
+  
+  .PropertyDeatilContainer {
+    height: 100%;
+    width: 100%;
+    padding-top: 2rem;
+    min-height: 70vh;
+  }
+  
+  .sliderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    padding: none;
+  }
+  
+  .mainImage {
+    min-width:22rem;
+    max-height: 22rem;
+    max-width: 10rem;
+    border-radius: 10px;
+    width:fit-content;
+    height:max-content;
+
+  }
+  
+  .thumbnailContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+  
+  .thumbnail {
+    width: 100px;
+    height: 75px;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+  }
+  
+  .thumbnail:hover {
+    border-color: #58626b;
+  }
+  
+  .PropertyDeatil{
+    height: 100%;
+    width: 100%;
+  }
+
+  .PropPrimaryDet{
+     padding-top: 3rem;
+     padding-inline: 2rem;
+  }
+
+  .PropertyPrice{
+    color: #072744;
+    background-color: transparent;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: 1rem;
+  }
+
+  .PropertyAddress{
+    color: #072744;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+  }
+
+  .PropBasicDet{
+    background-color: #e9eeee;
+    height: 5rem;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+  }
+
+  .PropBasicDetBox{
+    background-color: transparent;
+    align-items: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .PropBasicData{
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    font-size: medium;
+    background-color: transparent;
+  }
+
+  .PropertySeller{
+    color: #072744;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 1rem;
+  }
+
+  .SellerName{
+    color: #072744;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+
+  .contentSelector{
+    height: fit-content;
+    width: 100%;
+    border: 1px solid #f2f4f7;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    background-color: #f2f4f7;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .contentSelectorButton{
+    background-color: transparent;
+    color: #072744;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-right: 1rem;
+    width: 7rem;
+  }
+
+  .basicDetailCont{
+    height: 100vh;
+    width: 100%;
+    border: 1px solid #f2f4f7;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    background-color: #f2f4f7;
+  }
+  .calculatorContainerBox{
+    height: fit-content;
+    width: 100%;
+    border: 1px solid #f2f4f7;
+    padding: 3rem;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    background-color: #f2f4f7;
+  }
+  .contentSelectorButton.activeButton {
+    background-color: #072744;
+    color: #f0f2f3;
+  }
+
+  .calculatorTitle{
+    background: transparent;
+    color: #072744;
+  }
+
+  .contentCalculator{
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .calculatorContainer{
+    background-color: #072744; 
+    margin-top: 3rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1fr; /* Single row that takes up remaining space */
+    height: fit-content; /* Example to make parent container full viewport height */
+    width: fit-content; /* Full width of parent container */
+  }
+
+  .ResultTitle{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #f0f2f3;
+  }
+
+  .Result {
+    display: flex;
+    flex: 1;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 1rem 1rem; /* Margin for spacing */
+    background-color: #e9eeee;
+    color: #072744;
+    padding: 1rem; /* Padding to add space inside the box */
+    border-radius: 10px;
+  }
+  
+  .calculationContainer{
+    background-color: #072744; 
+    margin-top: 3rem;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 1fr; 
+    height: fit-content; 
+    width: fit-content; 
+    margin-left: 3rem;
+    width: 70%;
+  }
+  .inputContainer{
+    display: flex;
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 1rem 3rem; /* Margin for spacing */
+    background-color: #e9eeee;
+    color: #072744;
+    padding: 1rem; /* Padding to add space inside the box */
+    border-radius: 10px;
+  }
+  .calculationFormContainer{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+
+.formRowContaner{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: transparent;
+    margin-top: 1rem;
+}
+
+.calculateButton{
+    background-color: #072744;
+    color: #f0f2f3;
+    border-radius: 10px;
+
+}
+
+.basicDescriptionCont{
+  height: 100vh;
+  width: 100%;
+  border: 1px solid #f2f4f7;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  border-radius: 10px;
+  background-color: #f2f4f7;
+}
+
+.descriptionTitle{
+  background-color: transparent;
+  color: #072744;
+  font-size: 3rem;
+}
+.descriptionText{
+  background-color: transparent;
+  color: #072744;
+  font-size: large;
+  padding-top: 1rem;
+  padding-inline: 1.5rem;
+}
+
+.CountRow{
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+}

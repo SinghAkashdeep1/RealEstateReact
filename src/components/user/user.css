@@ -1,0 +1,129 @@
+.mainHeader {
+    display: flex;
+    justify-content: space-between; /* Ensures space between the logo and buttons */
+    align-items: center; /* Vertically centers items */
+    height: 90px;
+    padding: 0 60px; /* Horizontal padding */
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+}
+
+.site-space {
+    padding: 0; /* Remove horizontal padding for no whitespace */
+    height: 60px;
+} 
+
+.bg-primary-color {
+    background-color: #2495ff !important; /* Background color for the site space */
+}
+
+.gridButtons {
+    height: 60px; 
+    padding: 0 35px;
+}
+
+.gridButton {
+    height: 70px; 
+    border-right: 1px solid rgb(40, 92, 190); 
+    background-color: #1b3f83;
+    color: rgb(252, 252, 249); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
+    transition: background-color 0.3s;
+    font-weight: 500; 
+}
+
+.gridButton:hover {
+    background-color: #0a397a; /* Darker shade on hover */
+}
+
+.videoContainer{
+    height: 130vh;
+    width: 100%;
+    background-color: rgb(248, 249, 250);
+}
+.videoDetail{
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    padding: 3rem;
+}
+.videoTitle{
+    background: transparent;
+
+}
+.heading{
+    background: transparent;
+    font-size: 2rem;
+    font-weight: 800;
+
+}
+.videoDesc{
+    background: transparent;
+    font-size: 20px;
+
+}
+
+.videoContent{
+    background: transparent;
+    padding-left: 5rem;
+    padding-right: 2rem;
+    height: 200px;
+    width: 1200px;
+}
+
+.footer-container{
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgb(24, 23, 23);
+    display: flex;
+    flex-direction: row;
+}
+
+.footer-block1{
+    width: 50%;
+    height: 100%;
+    padding-inline: 4rem;
+    padding-top: 2rem;
+    margin-left: 5rem;
+    margin-top: 4rem;
+    background: transparent;
+}
+
+.footer-block2{
+    width: 50%;
+    padding-inline: 4rem;
+    margin-right: 5rem;
+    margin-bottom: 4rem;
+    margin-top: 4rem;
+    background: transparent;
+    border: 0.5px solid rgb(75, 71, 71);
+    border-radius: 9px;
+}
+
+.aboutDesc{
+    background: transparent;
+    color: azure;
+    margin-top: 1rem;
+    font-size: 15px;
+}
+
+.footerLogo{
+    background: transparent;
+    color: azure;
+    min-width: 10rem;
+    justify-content: space-around;
+}
+.buttonSM{
+   margin-left: 3px;
+   background: transparent;
+   border: none;
+}
+
+
+  

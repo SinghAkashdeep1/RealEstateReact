@@ -1,0 +1,13 @@
+/* styles.css or any relevant CSS file */
+.btnCustom {
+    border: none; /* Optional: border style */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    color: #fdfafa;
+    margin-right: 1rem;
+  }
+  
+  .btnCustom:onClick {
+    background-color: #f50b51; /* Change to desired hover color */
+    color: white; /* Change text color on hover if needed */
+  }
+  

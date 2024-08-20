@@ -1,0 +1,174 @@
+.sliderContainer {
+    height: 100vh; 
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Positioning context for absolutely positioned children */
+  }
+  
+  .backgroundSlider1 {
+    height: 50%; 
+    width: 100%;
+    background-color: #1b3f83; /* Dark blue background */
+  }
+  
+  .backgroundSlider2 {
+    width: 100%;
+    background-color: white; /* White background */
+  }
+  
+  .PropertySliderContainer {
+    position: absolute; /* Position the slider absolutely within the container */
+    top: 50%; /* Center it vertically */
+    left: 0;
+    right: 0;
+    transform: translateY(-50%); /* Offset to center vertically */
+    background: transparent;
+    z-index: 10; /* Ensure it appears above the background sliders */
+    text-align: center; /* Center the text in the container */
+    justify-content: space-between;
+  }
+  
+  .slider {
+    background: transparent; /* Ensure the slider itself is transparent */
+  }
+  
+  .sliderTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Space between title and button */
+    margin-bottom: 1rem; /* Space below the title container */
+    padding-inline: 3rem;
+  }
+  
+  .sliderTitle {
+    background: transparent; /* Keep the title background transparent */
+    color: aliceblue; /* Title color */
+    font-size: 2rem; /* Font size for the title */
+  }
+  
+  .cardContainer {
+    display: flex; /* Align cards in a row */
+    background: transparent;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    justify-content: center; /* Center the cards horizontally */
+    align-items: center; /* Center vertically */
+    overflow: hidden; /* Hide overflow */
+    width: 100%; /* Ensure it takes full width */
+    padding: 0 2rem; /* Add padding for spacing */
+    gap: 1rem; /* Add gap between containers */
+  }
+  
+  
+  .sliderCard {
+    margin: 0 1rem; /* Space between cards */
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+  }
+  
+  .arrow {
+    background: none;
+    border: none;
+    color: rgb(243, 231, 231);
+    font-size: 3rem;
+    font-weight: 800;
+    margin-left:5rem;
+    margin-right:5rem;
+
+    cursor: pointer;
+    position: absolute; /* Position arrows within the container */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Ensure arrows are above cards */
+  }
+  
+  .arrow:first-of-type {
+    left: 10px; /* Position left arrow */
+  }
+  
+  .arrow:last-of-type {
+    right: 10px; /* Position right arrow */
+  }
+  
+  .dotsContainer {
+    display: flex;
+    justify-content: center; /* Center dots */
+    margin-top: 1rem; /* Space above dots */
+  }
+  
+  .dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: lightgray;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .activeDot {
+    background-color: gray; /* Active dot color */
+  }
+  
+.propertyDataBox {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take full height of the grid item */
+  min-width: 20rem;
+  max-width: 310px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  text-align: center;
+  border: 1px solid #d9dde0;
+  cursor: pointer;
+}
+
+.propertyImgContainer {
+  width: 320px; /* Ensure the container takes up full width of its parent */
+  height: 200px; /* Set a fixed height for the container */
+  overflow: hidden; /* Hide any overflowed content */
+  position: relative; /* Ensure the image is positioned correctly within this container */
+}
+
+.propertyImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+.propertyPrimaryInfo {
+  padding: 1rem;
+  padding-inline: 2rem
+
+}
+.propertyTitle{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.propertyTitleText{
+  color: #03192e;
+  font-size: larger;
+  font-weight: 800;
+}
+.propertyTitleAddress{
+  display: flex;
+  justify-content: left;
+  margin-top: 1rem;
+}
+
+.propertyCountRooms{
+  background-color: #f2f3f5;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.propertySelectFav:hover{
+    color: #03192e;
+    cursor: pointer;
+}

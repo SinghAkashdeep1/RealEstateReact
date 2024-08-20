@@ -1,0 +1,134 @@
+.container {
+    height:fit-content;
+    width: 100%;
+    padding: 0 60px;
+  }
+  
+  .containerTitle {
+    padding: 0.5rem;
+    color: #4A4B2F;
+    margin-top: 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+  
+  .PropertyDeatilSidebar {
+    height: 100%;
+    width: 60%;
+
+  }
+  
+  .PropertyDeatilContainer {
+    height: 100%;
+    width: 100%;
+    padding-top: 0.5rem;
+    min-height: 70vh;
+  }
+  
+  .sliderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    padding: none;
+  }
+  
+  .mainImage {
+    min-width:23rem;
+    max-height: 25rem;
+    max-width: 10rem;
+    border-radius: 10px;
+    width:fit-content;
+    height:max-content;
+
+  }
+  
+  .thumbnailContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+  }
+  
+  .thumbnail {
+    width: 100px;
+    height: 75px;
+    cursor: pointer;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+  }
+  
+  .thumbnail:hover {
+    border-color: #58626b;
+  }
+  
+  .PropertyDeatil{
+    height: 100%;
+    width: 100%;
+  }
+
+  .PropPrimaryDet{
+     padding-top: 1rem;
+     padding-inline: 2rem;
+  }
+
+  .PropertyPrice{
+    color: #4A4B2F;
+    background-color: transparent;
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: 1rem;
+  }
+
+  .PropertyAddress{
+    color: #4A4B2F;
+    background-color: transparent;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+
+  .PropBasicDet{
+    background-color: #f0f1c0;
+    height: 5rem;
+    width: 30rem;
+    margin-left: 0.5rem;
+    margin-left: 2rem;
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+  }
+
+  .PropBasicDetBox{
+    background-color: transparent;
+    align-items: center;
+    padding: 0.3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .PropBasicData{
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    font-size: medium;
+    background-color: transparent;
+  }
+
+  .PropertySeller{
+    color: #4A4B2F;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 1rem;
+  }
+
+  .SellerName{
+    color: #4A4B2F;
+    background-color: transparent;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  

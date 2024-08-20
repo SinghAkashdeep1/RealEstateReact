@@ -1,0 +1,172 @@
+.buyPopertyBlock {
+    height: fit-content;
+    padding: 0 60px;
+}
+
+.titleContainer {
+    height: 9rem;
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e5ebeb;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+    background: transparent;
+    background-color: #e5ebeb;
+
+}
+
+.buyContainer {
+    display: flex;
+    width: 100%;
+    min-height: 80vh; /* Ensure it takes at least 80% of viewport height */
+}
+
+.sideContainer {
+    max-width: 25%; /* Use percentage for responsive layout */
+    min-width: 20%; /* Ensures a minimum width */
+    height: auto; /* Allow height to adjust based on content */
+    padding-right: 1rem; /* Add some space between the side and property container */
+}
+
+.sideContainerContent {
+    background: transparent;
+    padding: 1rem;
+    color: rgb(41, 39, 39);
+    font-size: larger;
+    font-weight: 400;
+}
+
+.propertyContainer {
+    flex: 1; /* Allow it to take the remaining space */
+    border-radius: 10px;
+    border: 1px solid transparent; /* Ensure border is visible if needed */
+    margin-bottom: 4rem;
+    padding: 1rem; /* Add padding to prevent content from touching the edges */
+}
+
+.accordianContainer {
+    background: transparent;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.accordianItem {
+    background: transparent !important;
+    margin-bottom: 6px;
+    border: 0px solid #0d0e0e;
+}
+
+.accordianHeader button {
+    background: #03192e;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: none;
+    border-color: #ffffff;
+}
+
+.accordianHeader:hover {
+    background: #072744;
+}
+
+.accordianBody {
+    background: #ffffff;
+    color: #000000;
+}
+
+.accordianLabel {
+    font-size: large;
+    color: #000000;
+}
+.propertyGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+    gap: 20px;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.propertyDataBox {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Take full height of the grid item */
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    text-align: center;
+    border: 1px solid #d9dde0;
+    cursor: pointer;
+}
+
+.propertyImgContainer {
+    position: relative; /* Ensure the badge can be positioned absolutely */
+    flex: 1; /* Take up the remaining space */
+}
+
+.propertyImage {
+    width: 100%;
+    height: auto;
+    max-height: 17rem;
+    min-height: 17rem;
+
+}
+
+.propertyPrimaryInfo {
+    padding: 1rem;
+    padding-inline: 2rem
+
+}
+.propertyTitle{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.propertyTitleText{
+    color: #03192e;
+    font-size: larger;
+    font-weight: 800;
+}
+.propertyTitleAddress{
+    display: flex;
+    justify-content: left;
+    margin-top: 1rem;
+}
+
+.propertyCountRooms{
+    background-color: #f2f3f5;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.propertySelectFav:hover{
+      color: #03192e;
+      cursor: pointer;
+}
+
+
+
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #04752a; /* Adjust the background color as needed */
+    color: #ffffff; /* Adjust text color as needed */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.propertyDataBox a {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Ensure text color is inherited from parent */
+  }
