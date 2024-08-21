@@ -11,7 +11,9 @@ import Home from "./components/user/Home";
 import Sell from "./pages/User/Sell";
 import Buy from "./pages/User/Buy";
 import BuyProperty from "./pages/User/BuyProperty";
-
+import UserLogin from "./pages/User/Auth/Login";
+import Register from "./pages/User/Auth/Register";
+import UserProfile from "./pages/User/profile/UserProfile";
 function App() {
   const notify = () => toast("Wow so easy!");
 
@@ -32,6 +34,9 @@ function App() {
       <Routes>
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/registration" element={<Register />} />
 
         <Route
           path="*"
@@ -73,13 +78,24 @@ function App() {
           }
         />
 
-
         <Route
           path="/property/details/:id"
           element={
             <>
               <Layouts>
                 <BuyProperty />{" "}
+              </Layouts>
+            </>
+          }
+        />
+
+        <Route
+          path="/user/profile"
+          element={
+            <>
+              <Layouts>
+                <UserProfile />
+
               </Layouts>
             </>
           }

@@ -37,7 +37,7 @@ export const addProperty = createAsyncThunk(
 );
 
 const propertySlice = createSlice({
-  name: "property",
+  name: "propertyAdd",
   initialState,
   reducers: {},
 

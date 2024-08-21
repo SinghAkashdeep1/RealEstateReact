@@ -13,12 +13,12 @@ export const store = configureStore({
 //Admin
     auth: authReducer,
     user: userReducer,
-    property : userSellPropertyReducer,
+    propertyAdd : userSellPropertyReducer,
     propertyBuy: userBuyPropertyReducer,
     listingTypes: listingTypeReducer,
     propertyTypes: propertyTypeReducer,
     propertySubTypes: propertySubTypeReducer,
-    property: propertyReducer
+    property: propertyReducer,
   },
 });
 

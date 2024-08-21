@@ -15,7 +15,9 @@ const countriesData = {
 
 const Sell = () => {
   const dispatch = useDispatch();
-  const { loading, error, typeLists } = useSelector((state) => state.property);
+
+  const { typeLists, loading, error } = useSelector((state) => state.propertyAdd);
+  console.log(typeLists, "fgdg");
 
   useEffect(() => {
     dispatch(typeList());
@@ -88,7 +90,7 @@ const Sell = () => {
       property_sub_type: "",
     }));
 
-    const filtered = typeLists.property_sub_type.filter(
+    const filtered = typeLists?.property_sub_type?.filter(
       (subType) => subType.property_type_id === selectedType
     );
     setFilteredSubTypes(filtered);
@@ -219,6 +221,9 @@ const Sell = () => {
     }
   };
 
+  // Check if token exists in localStorage
+  const token = localStorage.getItem("token");
+
   return (
     <div className={styles.addPopertyBlock}>
       <ToastContainer />
@@ -232,257 +237,261 @@ const Sell = () => {
       </div>
 
       <div className={styles.inputContainer}>
-        <Card className="p-4">
-          <Card.Body>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formLabel" className={styles.formLabel}>
-                <Form.Label className={styles.formLabelText}>
-                  Property Detail
-                </Form.Label>
-              </Form.Group>
+        {!token ? (
+          <p className="text-danger">Login to access!</p>
+        ) : (
+          <Card className="p-4">
+            <Card.Body>
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formLabel" className={styles.formLabel}>
+                  <Form.Label className={styles.formLabelText}>
+                    Property Detail
+                  </Form.Label>
+                </Form.Group>
 
-              <Form.Group controlId="formPrice" className="py-4 px-4">
-                <Form.Label>Price</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter price"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group controlId="formPrice" className="py-4 px-4">
+                  <Form.Label>Price</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
 
-              <Form.Group controlId="formdescription" className="py-2 px-4">
-                <Form.Label>Property Summary</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group controlId="formdescription" className="py-2 px-4">
+                  <Form.Label>Property Summary</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
 
-              <Row>
-                <Col>
-                  <Form.Group controlId="formBedrooms" className="py-2 px-4">
-                    <Form.Label>No. of Bedrooms</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter number of bedrooms"
-                      name="bedrooms"
-                      value={formData.bedrooms}
-                      onChange={handleInputChange}
-                      min={0}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formBathrooms" className="py-2 px-4">
-                    <Form.Label>No. of Bathrooms</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter number of bathrooms"
-                      name="bathrooms"
-                      value={formData.bathrooms}
-                      onChange={handleInputChange}
-                      min={0}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formArea" className="py-2 px-4">
-                    <Form.Label>Area</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter Area (e.g., 1500 sqft, 200 sqm, 0.5 hectare)"
-                      name="area"
-                      value={formData.area}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="formBedrooms" className="py-2 px-4">
+                      <Form.Label>No. of Bedrooms</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter number of bedrooms"
+                        name="bedrooms"
+                        value={formData.bedrooms}
+                        onChange={handleInputChange}
+                        min={0}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="formBathrooms" className="py-2 px-4">
+                      <Form.Label>No. of Bathrooms</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter number of bathrooms"
+                        name="bathrooms"
+                        value={formData.bathrooms}
+                        onChange={handleInputChange}
+                        min={0}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="formArea" className="py-2 px-4">
+                      <Form.Label>Area</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter Area (e.g., 1500 sqft, 200 sqm, 0.5 hectare)"
+                        name="area"
+                        value={formData.area}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Form.Group controlId="formMainImage" className="py-2 px-4">
-                <Form.Label>Main Image</Form.Label>
-                <Form.Control
-                  type="file"
-                  name="mainImage"
-                  onChange={handleFileChange}
-                  accept="image/*"
-                />
-              </Form.Group>
+                <Form.Group controlId="formMainImage" className="py-2 px-4">
+                  <Form.Label>Main Image</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="mainImage"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                  />
+                </Form.Group>
 
-              <Form.Group controlId="formSubImages" className="py-2 px-4 mb-4">
-                <Form.Label>Sub Images</Form.Label>
-                <Form.Control
-                  type="file"
-                  name="sub_images"
-                  onChange={handleFileChange}
-                  multiple
-                  accept="image/*"
-                />
-              </Form.Group>
+                <Form.Group controlId="formSubImages" className="py-2 px-4 mb-4">
+                  <Form.Label>Sub Images</Form.Label>
+                  <Form.Control
+                    type="file"
+                    name="sub_images"
+                    onChange={handleFileChange}
+                    multiple
+                    accept="image/*"
+                  />
+                </Form.Group>
 
-              <Form.Group
-                controlId="formLabel"
-                className={`${styles.formLabel} `}
-              >
-                <Form.Label className={styles.formLabelText}>
-                  Property Address
-                </Form.Label>
-              </Form.Group>
+                <Form.Group
+                  controlId="formLabel"
+                  className={`${styles.formLabel} `}
+                >
+                  <Form.Label className={styles.formLabelText}>
+                    Property Address
+                  </Form.Label>
+                </Form.Group>
 
-              <Form.Group controlId="formLocation" className="py-4 px-4">
-                <Form.Label>Location</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group controlId="formLocation" className="py-4 px-4">
+                  <Form.Label>Location</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
 
-              <Row>
-                <Col>
-                  <Form.Group controlId="formCity" className="py-2 px-4">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter city"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formPincode" className="py-2 px-4">
-                    <Form.Label>Pincode</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Enter pincode"
-                      name="pincode"
-                      value={formData.pincode}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+                <Row>
+                  <Col>
+                    <Form.Group controlId="formCity" className="py-2 px-4">
+                      <Form.Label>City</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter city"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="formPincode" className="py-2 px-4">
+                      <Form.Label>Pincode</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Enter pincode"
+                        name="pincode"
+                        value={formData.pincode}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Row>
-                <Col>
-                  <Form.Group controlId="formCountry" className="py-3 px-4 mb-4">
-                    <Form.Label>Country</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleCountryChange}
-                    >
-                      <option value="">Select Country</option>
-                      {Object.keys(countriesData).map((country) => (
-                        <option key={country} value={country}>
-                          {country}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formState" className="py-3 px-4">
-                    <Form.Label>State</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleStateChange}
-                      disabled={!formData.country}
-                    >
-                      <option value="">Select State</option>
-                      {formData.country &&
-                        countriesData[formData.country].map((state) => (
-                          <option key={state} value={state}>
-                            {state}
+                <Row>
+                  <Col>
+                    <Form.Group controlId="formCountry" className="py-3 px-4 mb-4">
+                      <Form.Label>Country</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleCountryChange}
+                      >
+                        <option value="">Select Country</option>
+                        {Object.keys(countriesData).map((country) => (
+                          <option key={country} value={country}>
+                            {country}
                           </option>
                         ))}
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-              </Row>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group controlId="formState" className="py-3 px-4">
+                      <Form.Label>State</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleStateChange}
+                        disabled={!formData.country}
+                      >
+                        <option value="">Select State</option>
+                        {formData.country &&
+                          countriesData[formData.country].map((state) => (
+                            <option key={state} value={state}>
+                              {state}
+                            </option>
+                          ))}
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                </Row>
 
-              <Form.Group
-                controlId="formLabel"
-                className={`${styles.formLabel} `}
-              >
-                <Form.Label className={styles.formLabelText}>
-                  Property Types
-                </Form.Label>
-              </Form.Group>
-
-              <Form.Group controlId="formPropertyType" className="py-3 px-4">
-                <Form.Label>Property Type</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="property_type"
-                  value={formData.property_type}
-                  onChange={handlePropertyTypeChange}
+                <Form.Group
+                  controlId="formLabel"
+                  className={`${styles.formLabel} `}
                 >
-                  <option value="">Select property type</option>
-                  {typeLists?.property_type?.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+                  <Form.Label className={styles.formLabelText}>
+                    Property Types
+                  </Form.Label>
+                </Form.Group>
 
-              {filteredSubTypes.length > 0 && (
-                <Form.Group controlId="formPropertySubtype" className="py-3 px-4">
-                  <Form.Label>Property Subtype</Form.Label>
+                <Form.Group controlId="formPropertyType" className="py-3 px-4">
+                  <Form.Label>Property Type</Form.Label>
                   <Form.Control
                     as="select"
-                    name="property_sub_type"
-                    value={formData.property_sub_type}
-                    onChange={handleInputChange}
+                    name="property_type"
+                    value={formData.property_type}
+                    onChange={handlePropertyTypeChange}
                   >
-                    <option value="">Select property subtype</option>
-                    {filteredSubTypes.map((subType) => (
-                      <option key={subType.id} value={subType.id}>
-                        {subType.name}
+                    <option value="">Select property type</option>
+                    {typeLists?.property_type?.map((type) => (
+                      <option key={type.id} value={type.id}>
+                        {type.name}
                       </option>
                     ))}
                   </Form.Control>
                 </Form.Group>
-              )}
 
-              <Form.Group controlId="formListingType" className="py-2 px-4">
-                <Form.Label>Listing Type</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="listing_type"
-                  value={formData.listing_type}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select listing type</option>
-                  {typeLists?.listing_type?.map((listing) => (
-                    <option key={listing.id} value={listing.id}>
-                      {listing.name}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+                {filteredSubTypes.length > 0 && (
+                  <Form.Group controlId="formPropertySubtype" className="py-3 px-4">
+                    <Form.Label>Property Subtype</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="property_sub_type"
+                      value={formData.property_sub_type}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select property subtype</option>
+                      {filteredSubTypes.map((subType) => (
+                        <option key={subType.id} value={subType.id}>
+                          {subType.name}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                )}
 
-              <div className="py-2 px-4">
-                <Button variant="primary" type="submit">
-                  Submit
-                </Button>
-              </div>
-            </Form>
-          </Card.Body>
-        </Card>
+                <Form.Group controlId="formListingType" className="py-2 px-4">
+                  <Form.Label>Listing Type</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="listing_type"
+                    value={formData.listing_type}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select listing type</option>
+                    {typeLists?.listing_type?.map((listing) => (
+                      <option key={listing.id} value={listing.id}>
+                        {listing.name}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+
+                <div className="py-2 px-4">
+                  <Button variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        )}
       </div>
     </div>
   );

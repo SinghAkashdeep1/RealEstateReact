@@ -1,7 +1,10 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { propertiesListApi } from "./buyPropertyServices";
-import { propertyDetailApi } from "./buyPropertyServices";
+import {
+  propertiesListApi,
+  propertyDetailApi,
+  propertiesTypesListApi,
+} from "./buyPropertyServices";
 
 const initialState = {
   loading: false,
@@ -9,13 +12,26 @@ const initialState = {
   propertyList: [],
   dataSlider: [],
   propertyData: [],
+  propertytypesSearch: [],
 };
 
-export const propertiesList = createAsyncThunk(
-  "user/fetchPropertiesList",
+export const propertiesTypesList = createAsyncThunk(
+  "user/fetchPropertiesTypesList",
   async (data, thunkAPI) => {
     try {
-      const response = await propertiesListApi(data);
+      const response = await propertiesTypesListApi(data);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const propertiesList = createAsyncThunk(
+  'property/fetchPropertiesList',
+  async (filters, thunkAPI) => {
+    try {
+      const response = await propertiesListApi(filters);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -56,6 +72,21 @@ const propertySlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      //get list for search property types=
+      .addCase(propertiesTypesList.pending, (state) => {
+        state.loading = true;
+        state.error = "";
+      })
+      .addCase(propertiesTypesList.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = "";
+        state.propertytypesSearch = action.payload;
+      })
+      .addCase(propertiesTypesList.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
       //get list properties
       .addCase(propertiesList.pending, (state) => {
         state.loading = true;
@@ -70,7 +101,7 @@ const propertySlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      
+
       //in slider
       .addCase(propertiesListSlider.pending, (state) => {
         state.loading = true;

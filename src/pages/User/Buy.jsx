@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { propertiesList } from "../../userStore/buyPropertyApi/buyPropertySlices";
+import {
+  propertiesList,
+  propertiesTypesList,
+} from "../../userStore/buyPropertyApi/buyPropertySlices";
+
+import {
+  typeList
+} from "../../userStore/sellPopertyApi/addPropertySlice";
+
 import styles from "./Buy.module.css";
 import { HiSearch } from "react-icons/hi";
 import Accordion from "react-bootstrap/Accordion";
@@ -8,64 +16,144 @@ import { FaRegHeart, FaTape } from "react-icons/fa";
 import { MdKingBed } from "react-icons/md";
 import { GiKitchenTap } from "react-icons/gi";
 import { CiLocationOn } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 const Buy = () => {
   const dispatch = useDispatch();
-  const { propertyList, loading, error } = useSelector(
+  const location = useLocation();
+
+  const { propertyList, propertytypesSearch, loading, error } = useSelector(
     (state) => state.propertyBuy
   );
+   
+ // const { typeLists } = useSelector((state) => state.property);
+
+ useEffect(() => {
+  dispatch(typeList());
+}, [dispatch]);
+
+  let [searchQuery, setSearchQuery] = useState("");
+  let [selectedOption, setSelectedOption] = useState("");
   const [selectedListingTypes, setSelectedListingTypes] = useState([]);
   const [selectedPropertyTypes, setSelectedPropertyTypes] = useState([]);
   const [selectedPropertySubTypes, setSelectedPropertySubTypes] = useState([]);
+  const [selectedBedrooms, setSelectedBedrooms] = useState("");
+  const [selectedBathrooms, setSelectedBathrooms] = useState("");
+  const [minPrice, setMinPrice] = useState(0); // Initialized as number
+  const [maxPrice, setMaxPrice] = useState(0); // Initialized as number
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [fetchedProperties, setFetchedProperties] = useState([]);
 
+  // Fetch property types on component mount
   useEffect(() => {
-    dispatch(propertiesList());
+    dispatch(propertiesTypesList());
   }, [dispatch]);
 
+  // Fetch properties based on initial search criteria
   useEffect(() => {
-    setFilteredProperties(propertyList?.property_list || []);
-  }, [propertyList]);
+    dispatch(
+      propertiesList({
+        search: searchQuery,
+        type: selectedOption,
+        bedrooms: selectedBedrooms,
+        bathrooms: selectedBathrooms,
+      })
+    ).then((response) => {
+      setFetchedProperties(response.payload.property_list || []);
+    });
+  }, [
+    dispatch,
+    searchQuery,
+    selectedOption,
+    selectedBedrooms,
+    selectedBathrooms,
+  ]);
 
+  // Handle filtering logic
+  const filterProperties = () => {
+    if (!fetchedProperties) return;
+
+    //params get 
+    const queryParams =  new URLSearchParams(location.search); 
+    searchQuery = queryParams.get("search")
+    selectedOption =  queryParams.get("type")
+
+    const filtered = fetchedProperties.filter((property) => {
+      const isListingTypeMatched =
+        selectedListingTypes.length === 0 ||
+        selectedListingTypes.includes(Number(property.listing_type));
+      const isTypeMatched =
+        selectedPropertyTypes.length === 0 ||
+        selectedPropertyTypes.includes(Number(property.property_type));
+      const isSubtypeMatched =
+        selectedPropertySubTypes.length === 0 ||
+        selectedPropertySubTypes.includes(Number(property.property_sub_type));
+      const isBedroomsMatched =
+        !selectedBedrooms || property.bedrooms === selectedBedrooms;
+      const isBathroomsMatched =
+        !selectedBathrooms || property.bathrooms === selectedBathrooms;
+      const isPriceInRange =
+        (minPrice === 0 || property.price >= minPrice) &&
+        (maxPrice === 0 || property.price <= maxPrice);
+
+      return (
+        isListingTypeMatched &&
+        isTypeMatched &&
+        isSubtypeMatched &&
+        isBedroomsMatched &&
+        isBathroomsMatched &&
+        isPriceInRange
+      );
+    });
+
+    setFilteredProperties(filtered);
+  };
+
+  // Update filtered properties whenever filters change
   useEffect(() => {
-    const filterProperties = () => {
-      if (!propertyList?.property_list) return;
-
-      const filtered = propertyList.property_list.filter((property) => {
-        const isListingTypeMatched =
-          selectedListingTypes.length === 0 ||
-          selectedListingTypes.includes(Number(property.listing_type));
-        const isTypeMatched =
-          selectedPropertyTypes.length === 0 ||
-          selectedPropertyTypes.includes(Number(property.property_type));
-        const isSubtypeMatched =
-          selectedPropertySubTypes.length === 0 ||
-          selectedPropertySubTypes.includes(Number(property.property_sub_type));
-
-        return isListingTypeMatched && isTypeMatched && isSubtypeMatched;
-      });
-
-      console.log("Filtered Properties:", filtered);
-      setFilteredProperties(filtered);
-    };
-
     filterProperties();
   }, [
     selectedListingTypes,
     selectedPropertyTypes,
     selectedPropertySubTypes,
-    propertyList,
+    selectedBedrooms,
+    selectedBathrooms,
+    minPrice,
+    maxPrice,
+    fetchedProperties,
   ]);
+
+  // Fetch properties with price range when search button is clicked
+  const handleSearch = () => {
+    dispatch(
+      propertiesList({
+        search: searchQuery,
+        type: selectedOption,
+        bedrooms: selectedBedrooms,
+        bathrooms: selectedBathrooms,
+        min_price: minPrice || undefined, // Include only if minPrice is not zero
+        max_price: maxPrice || undefined, // Include only if maxPrice is not zero
+      })
+    ).then((response) => {
+      setFetchedProperties(response.payload.property_list || []);
+    });
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSelectChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
 
   const handleListingTypeChange = (listingTypeId) => {
     setSelectedListingTypes((prev) => {
       const newState = prev.includes(listingTypeId)
         ? prev.filter((id) => id !== listingTypeId)
         : [...prev, listingTypeId];
-      console.log("Updated Listing Types:", newState);
       return newState;
     });
   };
@@ -75,7 +163,6 @@ const Buy = () => {
       const newState = prev.includes(typeId)
         ? prev.filter((id) => id !== typeId)
         : [...prev, typeId];
-      console.log("Updated Property Types:", newState);
       return newState;
     });
   };
@@ -85,9 +172,24 @@ const Buy = () => {
       const newState = prev.includes(subTypeId)
         ? prev.filter((id) => id !== subTypeId)
         : [...prev, subTypeId];
-      console.log("Updated Property Subtypes:", newState);
       return newState;
     });
+  };
+
+  const handleBedroomsChange = (e) => {
+    setSelectedBedrooms(e.target.value);
+  };
+
+  const handleBathroomsChange = (e) => {
+    setSelectedBathrooms(e.target.value);
+  };
+
+  const handleMinPriceChange = (e) => {
+    setMinPrice(parseFloat(e.target.value) || 0);
+  };
+
+  const handleMaxPriceChange = (e) => {
+    setMaxPrice(parseFloat(e.target.value) || 0);
   };
 
   const getListingTypeName = (listingTypeId) => {
@@ -113,17 +215,30 @@ const Buy = () => {
           <input
             type="text"
             placeholder="Search by City / MLS No. / Postal Code"
+            value={searchQuery}
+            onChange={handleSearchChange}
             className="search-input rounded-start-pill p-3"
           />
-          <select className="select-dropdown rounded-end-pill p-3">
-            <option value="" disabled>
-              Property Type
-            </option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+          <select
+            value={selectedOption}
+            onChange={handleSelectChange}
+            className="select-dropdown rounded-end-pill p-3"
+          >
+            <option value="">All Property Types</option>
+            {loading ? (
+              <option>Loading...</option>
+            ) : (
+              propertytypesSearch?.property_types?.map((type) => (
+                <option key={type.id} value={type.id}>
+                  {type.name}
+                </option>
+              ))
+            )}
           </select>
-          <button className="search-button btn btn-primary rounded-circle mx-2 px-2 py-2">
+          <button
+            className="search-button btn btn-primary rounded-circle mx-2 px-2 py-2"
+            onClick={handleSearch}
+          >
             <HiSearch size={25} className="search-icon bg-primary" />
           </button>
         </div>
@@ -173,9 +288,9 @@ const Buy = () => {
                         {type.name}
                       </label>
                       {selectedPropertyTypes.includes(type.id) && (
-                        <div className={styles.subTypeContainer}>
+                        <div className="ms-4">
                           {propertyList?.property_sub_type
-                            ?.filter((subType) => subType.id === type.id)
+                            .filter((subType) => subType.property_type_id === type.id)
                             .map((subType) => (
                               <label
                                 key={subType.id}
@@ -200,62 +315,74 @@ const Buy = () => {
             </Accordion>
           </div>
           <div className={styles.sideContainerContent}>
-            <h3> Search Properties</h3>
-            <Form noValidate onSubmit="">
-              <Form.Group controlId="validationCustom01" className="mt-4">
+            <h3>Search Properties</h3>
+            <Form noValidate onSubmit={(e) => e.preventDefault()}>
+              <Form.Group controlId="bedroomsSelect" className="mt-4">
                 <Form.Label>Bedrooms</Form.Label>
                 <Form.Select
-                  aria-label="Default select example"
+                  aria-label="Select number of bedrooms"
                   className="bg-transparent rounded-pill"
+                  onChange={handleBedroomsChange}
                 >
-                  <option>Open this select menu</option>
+                  <option value="">Any</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
+                  <option value="4">Four</option>
+                  <option value="5">Five +</option>
                 </Form.Select>
               </Form.Group>
 
-              <Form.Group controlId="validationCustom01" className="mt-2">
+              <Form.Group controlId="bathroomsSelect" className="mt-2">
                 <Form.Label>Bathrooms</Form.Label>
                 <Form.Select
-                  aria-label="Default select example"
+                  aria-label="Select number of bathrooms"
                   className="bg-transparent rounded-pill"
+                  onChange={handleBathroomsChange}
                 >
-                  <option>Open this select menu</option>
+                  <option value="">Any</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
                   <option value="3">Three</option>
+                  <option value="4">Four</option>
+                  <option value="5">Five +</option>
                 </Form.Select>
               </Form.Group>
 
-              <Form.Group controlId="validationCustomUsername" className="mt-2">
+              <Form.Group controlId="minPrice" className="mt-2">
                 <Form.Label>Min Price</Form.Label>
                 <InputGroup hasValidation>
                   <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
                   <Form.Control
-                    type="text"
-                    placeholder="enter max price"
+                    type="number"
+                    placeholder="Enter min price"
                     aria-describedby="inputGroupPrepend"
-                    required
+                    value={minPrice}
+                    onChange={handleMinPriceChange}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                  </Form.Control.Feedback>
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="validationCustomUsername" className="mt-2"> 
+              <Form.Group controlId="maxPrice" className="mt-2">
                 <Form.Label>Max Price</Form.Label>
                 <InputGroup hasValidation>
                   <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
                   <Form.Control
-                    type="text"
-                    placeholder="Enter max limit"
+                    type="number"
+                    placeholder="Enter max price"
                     aria-describedby="inputGroupPrepend"
-                    required
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
                   />
                 </InputGroup>
               </Form.Group>
+              {/* <button
+                type="button"
+                className="search-button btn btn-primary rounded-pill mx-2 px-2 py-2 mt-2"
+                onClick={handleSearch}
+              >
+                <HiSearch size={25} className="search-icon bg-primary" />Search
+              </button> */}
             </Form>
           </div>
         </div>
@@ -309,7 +436,7 @@ const Buy = () => {
                       </p>
                       <p className="bg-transparent py-2">
                         <FaTape size={25} className="bg-transparent" />{" "}
-                        {property.area} m²
+                        {property.area} sqft
                       </p>
                     </div>
                   </div>

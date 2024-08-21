@@ -26,9 +26,9 @@ export const propList = createAsyncThunk(
 
 export const propStatus = createAsyncThunk(
   "admin/propStatus",
-  async ({ page }, thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const response = await propStatusApi({ page });
+      const response = await propStatusApi(data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
