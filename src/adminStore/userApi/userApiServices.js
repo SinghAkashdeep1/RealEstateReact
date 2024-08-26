@@ -2,7 +2,7 @@ import axios from "axios";
 
 //const baseUrl = process.env.REACT_APP_BASE_URL;
 
-export const userListApi = async (data) => {
+export const userListApi = async ({ page = 1, perPage = 10 } = {}) => {
   try {
     const token = localStorage.getItem("token");
     const headers = {
@@ -12,7 +12,7 @@ export const userListApi = async (data) => {
     };
     const response = await axios.get(
       `http://127.0.0.1:8000/api/admin/user/list`,
-      headers
+      headers, { params: { page, perPage }}
     );
     return response;
   } catch (error) {

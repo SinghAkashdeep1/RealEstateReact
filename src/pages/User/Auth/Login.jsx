@@ -19,20 +19,34 @@ const UserLogin = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    
-    if (token) {
+    if(token) {
       navigate("/");
     }
   }, [navigate]);
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex pattern
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setError({ ...error, [name]: "" });
     setAuthCred({ ...authCred, [name]: value });
+    if (name === "email") {
+      setError({ ...error, email: emailRegex.test(value) ? "" : "Invalid email format" });
+    } else {
+      setError({ ...error, [name]: "" });
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!emailRegex.test(authCred.email)) {
+      toast.warning("Invalid email format");
+      setError({
+        email: "Invalid email format",
+        password: authCred.password ? "" : "Password is required",
+      });
+      return;
+    }
 
     try {
       if (authCred.email && authCred.password) {
@@ -41,16 +55,13 @@ const UserLogin = () => {
         const name = response.payload.data.data.name;
         console.log(response.payload.data.data);
 
-        toast.success("logged in successfully");
-        // Save token to localStorage
+        toast.success("Logged in successfully");
         localStorage.setItem("token", token);
         localStorage.setItem("name", name);
 
-        // Navigate to dashboard
-
         navigate("/");
       } else {
-        toast.warning("input field required");
+        toast.warning("Input field required");
 
         setError({
           email: authCred.email ? "" : "Email is required",
@@ -65,16 +76,16 @@ const UserLogin = () => {
       });
     }
   };
+
   return (
     <Container className="d-flex justify-content-center align-items-center h-100">
       <Row>
-       
         <Col sm={7}>
           <h1 className={`${styles.heading} heading text-center mb-3`}>
             User Login
           </h1>
           <Form onSubmit={handleSubmit} className={styles.inputGroup}>
-            <p className={`${styles.para} text-center  mb-3`}>
+            <p className={`${styles.para} text-center mb-3`}>
               Sign in to start your session
             </p>
             <Form.Group
@@ -83,13 +94,17 @@ const UserLogin = () => {
             >
               <Form.Control
                 className="rounded-start-pill p-2 me-2"
-                type="email"
+                type="text"
                 name="email"
                 placeholder="Email"
                 value={authCred.email}
                 onChange={handleChange}
+                isInvalid={!!error.email}
               />
               <MdEmail size={50} style={{ color: "#470826" }} />
+              {/* <Form.Control.Feedback type="invalid">
+                {error.email}
+              </Form.Control.Feedback> */}
             </Form.Group>
 
             <Form.Group
@@ -103,12 +118,16 @@ const UserLogin = () => {
                 placeholder="Password"
                 value={authCred.password}
                 onChange={handleChange}
+                isInvalid={!!error.password}
               />
               <MdLock size={50} style={{ color: "#470826" }} />
+              {/* <Form.Control.Feedback type="invalid">
+                {error.password}
+              </Form.Control.Feedback> */}
             </Form.Group>
 
             <Link
-              to="/admin/forgot-password"
+              to="/user/forgot-password"
               className="text-primary text-decoration-none"
             >
               Forgot Password?

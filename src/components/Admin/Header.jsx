@@ -29,7 +29,8 @@ const AdminHeader = () => {
 
   const handleLogout = () => {
     dispatch(AuthLogout());
-    localStorage.clear();
+    localStorage.removeItem("admin_name"); 
+    localStorage.removeItem("admin_token");
     navigate("/admin/login");
     toast.success("Logout successfully");
   };
@@ -85,9 +86,6 @@ const AdminHeader = () => {
         <NavDropdown.Item onClick={() => handleItemClick("profile")}>
           Profile
         </NavDropdown.Item>
-        <NavDropdown.Item onClick={() => handleItemClick("orders")}>
-          Orders
-        </NavDropdown.Item>
         <NavDropdown.Item onClick={() => handleItemClick("changePassword")}>
           Change Password
         </NavDropdown.Item>
@@ -102,7 +100,7 @@ const AdminHeader = () => {
         }}
       >
         <strong className="mt-1" style={{ backgroundColor: "#EFEFDF" }}>
-          {localStorage.getItem("name") ? localStorage.getItem("name") : "-"}
+          {localStorage.getItem("admin_name") ? localStorage.getItem("admin_name") : "-"}
         </strong>
       </div>
     </Navbar>

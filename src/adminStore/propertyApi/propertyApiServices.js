@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const propListApi = async ({page}) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const propListApi = async ({page}) => {
 //prop status
 export const propStatusApi = async (data) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export const propStatusApi = async (data) => {
  
 export const propDetApi = async (data) => {
     try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("admin_token");
         const headers = {
         headers: {
           Authorization: `Bearer ${token}`,

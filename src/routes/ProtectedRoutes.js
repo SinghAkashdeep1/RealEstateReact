@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const data = localStorage.getItem("token");
+  const data = localStorage.getItem("admin_token");
   const navigate = useNavigate();
   const userType = "admin";
   useEffect(() => {

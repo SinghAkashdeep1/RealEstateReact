@@ -90,31 +90,38 @@ const BuyProperty = () => {
   };
 
   const calculateMortgage = () => {
-    const { propertyPrice, downPayment, interestRate, period, paymentFreq } =
-      formData;
+    const { propertyPrice, downPayment, interestRate, period, paymentFreq } = formData;
+  
+    // Convert form data to numbers
     const principal = parseFloat(propertyPrice) - parseFloat(downPayment);
     const rate = parseFloat(interestRate) / 100 / 12; // Monthly interest rate
-    const numberOfPayments = parseInt(period) * (paymentFreq === "1" ? 12 : 26); // Payment frequency: 1 for Monthly, 2 for Bi-Weekly
-
-    if (
-      isNaN(principal) ||
-      isNaN(rate) ||
-      isNaN(numberOfPayments) ||
-      numberOfPayments <= 0
-    ) {
+    const years = parseInt(period) * (paymentFreq === "1" ? 12 : 26); // Total number of payments based on the frequency
+  
+    // Basic validation
+    if (isNaN(principal) || isNaN(rate) || isNaN(years) || years <= 0 || principal <= 0) {
       toast.error("Please enter valid numerical inputs.");
       setMortgageAmount("$0");
       return;
     }
-
+  
+    // Mortgage calculation
     if (rate === 0) {
-      setMortgageAmount((principal / numberOfPayments).toFixed(2));
+      // If interest rate is 0, calculate simple division
+      const monthlyPayment = principal / years;
+      setMortgageAmount(monthlyPayment.toFixed(2));
       return;
     }
-
+  
     const monthlyPayment =
-      (principal * rate) / (1 - Math.pow(1 + rate, -numberOfPayments));
+      (principal * rate) / (1 - Math.pow(1 + rate, -years));
+    
     setMortgageAmount(monthlyPayment.toFixed(2));
+  };
+  
+  
+  const handleCalculateMortgage = (e) => {
+    e.preventDefault();
+    calculateMortgage();
   };
 
   if (loading) return <p>Loading...</p>;
@@ -289,10 +296,7 @@ const BuyProperty = () => {
                       <Form
                         noValidate
                         validated=""
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          calculateMortgage();
-                        }}
+                        onSubmit={handleCalculateMortgage}
                         className={`${styles.calculationFormContainer}`}
                       >
                         <div className={`${styles.formRowContaner}`}>
@@ -331,9 +335,9 @@ const BuyProperty = () => {
                               onChange={handleChange}
                               className="border border-secondary bg-transparent rounded-pill"
                             >
-                              <option value="1">5 Years</option>
-                              <option value="2">10 Years</option>
-                              <option value="3">15 Years</option>
+                              <option value="5">5 Years</option>
+                              <option value="10">10 Years</option>
+                              <option value="15">15 Years</option>
                             </Form.Select>
                           </Form.Group>
                         </div>
@@ -395,8 +399,7 @@ const BuyProperty = () => {
                               onChange={handleChange}
                               className="border border-secondary bg-transparent rounded-pill"
                             >
-                              <option value="1">Monthly</option>
-                              <option value="2">Bi-Weekly</option>
+                              <option value="12">Monthly</option>
                             </Form.Select>
                           </Form.Group>
                         </div>

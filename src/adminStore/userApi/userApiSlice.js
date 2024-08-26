@@ -16,9 +16,9 @@ const initialState = {
 
 export const userList = createAsyncThunk(
   "admin/fetchUsers",
-  async (data, thunkAPI) => {
+  async (paginationParams, thunkAPI) => {
     try {
-      const response = await userListApi(data);
+      const response = await userListApi(paginationParams);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

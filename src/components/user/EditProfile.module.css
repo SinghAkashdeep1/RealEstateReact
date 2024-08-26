@@ -1,0 +1,78 @@
+.buttonContainerBox{
+    height: fit-content;
+    width: 100%;
+    background-color: transparent;
+    margin: 2rem 2rem 2rem 2rem;
+    border-radius: 10vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonContainer{
+    margin: 2rem 1rem 1rem 4rem;
+    color:white;
+    padding: 1rem;
+    border-radius: 10vh;
+    background-color :  #1b3f83
+}
+
+.activeButton {
+    margin: 2rem 1rem 1rem 4rem;
+    background-color:  rgb(231, 235, 235);
+    padding: 1rem;
+    border-radius: 10vh;
+    color: #1b3f83;
+}
+
+.formTitleContainer{
+    height: fit-content;
+    background-color: transparent;
+    margin: rem 6rem 1rem 6rem;
+    border-radius: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.formPersInfoTitle{
+     background-color: transparent;
+     font-size: 3rem;
+     color: rgb(231, 235, 235);
+     font-weight: 900;
+}
+
+.formContainer{
+    height: fit-content;
+    background-color:  rgb(231, 235, 235);
+    margin: 2rem 6rem 2rem 6rem;
+    border-radius: 5vh;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+}
+
+.formInputBox{
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}
+
+.submitButton{
+    background-color: #1b3f83;
+}
+.formIcon{
+    background-color: transparent;
+    color: #1b3f83;
+}
+
+.emptyBox{
+    background-color: transparent;
+    min-height: 3vh;
+}
+.error{
+    background-color: transparent;
+    color: darkred;
+    padding-inline: 1rem;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
