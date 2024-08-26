@@ -39,7 +39,9 @@ const Header = () => {
       </div>
       <header className="mainHeader">
         <div>
-          <Image src={UserLogo} rounded height={90} />
+        <Link to="/" className="d-inline-block">
+            <Image src={UserLogo} rounded height={90} />
+          </Link>
         </div>
         <div className="buttonContainer">
           {isLoggedIn ? (

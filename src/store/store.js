@@ -7,11 +7,15 @@ import listingTypeReducer  from "../adminStore/typesApi/listingTypes/listTypeApi
 import propertyTypeReducer  from "../adminStore/typesApi/propertyTypes/propertyTypeSlices";
 import propertySubTypeReducer  from "../adminStore/typesApi/propertySubTypes/propSubTypeSlices";
 import propertyReducer from "../adminStore/propertyApi/propertyApiSlices";
+import userAuthReducer from "../userStore/authApi/userAuthSlices";
+import dashboardReducer from "../userStore/dashboardApi/dashboardSlices";
+import adminDashReducer  from "../adminStore/dashboardApi/dashboardSlices";
 
 export const store = configureStore({
   reducer: {
 //Admin
     auth: authReducer,
+    authUser: userAuthReducer,
     user: userReducer,
     propertyAdd : userSellPropertyReducer,
     propertyBuy: userBuyPropertyReducer,
@@ -19,6 +23,8 @@ export const store = configureStore({
     propertyTypes: propertyTypeReducer,
     propertySubTypes: propertySubTypeReducer,
     property: propertyReducer,
+    userDashBoard: dashboardReducer,
+    adminDashboard:adminDashReducer
   },
 });
 

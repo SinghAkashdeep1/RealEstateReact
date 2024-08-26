@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./pages/Admin/Auth/Login";
 import ForgotPassword from "./pages/Admin/Auth/ForgotPassword";
+import ChangePasswordAdmin from "./pages/Admin/Auth/ChangePasswordAdmin";
 import AdminLayout from "./components/Admin/Layout";
 import ProtectedRoute from "./routes/ProtectedRoutes";
 import Layouts from "./components/user/Layouts";
@@ -14,6 +15,9 @@ import BuyProperty from "./pages/User/BuyProperty";
 import UserLogin from "./pages/User/Auth/Login";
 import Register from "./pages/User/Auth/Register";
 import UserProfile from "./pages/User/profile/UserProfile";
+import ChangePassUser from "./pages/User/Auth/ChangePassUser";
+import ForgotPassUser from "./pages/User/Auth/ForgotPassUser";
+
 function App() {
   const notify = () => toast("Wow so easy!");
 
@@ -34,9 +38,11 @@ function App() {
       <Routes>
         <Route path="/admin/login" element={<Login />} />
         <Route path="/admin/forgot-password" element={<ForgotPassword />} />
-
+        <Route path="/admin/reset-password/:token" element={<ChangePasswordAdmin />} />
         <Route path="/login" element={<UserLogin />} />
         <Route path="/registration" element={<Register />} />
+        <Route path="/user/forgot-password" element={<ForgotPassUser/>} />
+        <Route path="/reset-password/:token" element={<ChangePassUser />} />
 
         <Route
           path="*"

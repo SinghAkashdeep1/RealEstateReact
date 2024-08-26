@@ -9,6 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Login.module.css";
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,9 +19,7 @@ const Login = () => {
   const [error, setError] = useState({ email: "", password: "" });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    
+    const token = localStorage.getItem("admin_token");
     if (token) {
       navigate("/admin/dashboard");
     }
@@ -34,6 +34,15 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Validate email
+    if (!emailRegex.test(authCred.email)) {
+      setError({
+        email: "Invalid email address",
+        password: authCred.password ? "" : "Password is required",
+      });
+      return toast.warning("Please enter a valid email address");
+    }
+
     try {
       if (authCred.email && authCred.password) {
         const response = await dispatch(AuthLogin(authCred));
@@ -41,16 +50,15 @@ const Login = () => {
         const name = response.payload.data.data.name;
         console.log(response.payload.data.data);
 
-        toast.success("logged in successfully");
+        toast.success("Logged in successfully");
         // Save token to localStorage
-        localStorage.setItem("token", token);
-        localStorage.setItem("name", name);
+        localStorage.setItem("admin_token", token);
+        localStorage.setItem("admin_name", name);
 
         // Navigate to dashboard
-
         navigate("/admin/dashboard");
       } else {
-        toast.warning("input field required");
+        toast.warning("Input field required");
 
         setError({
           email: authCred.email ? "" : "Email is required",
@@ -65,16 +73,16 @@ const Login = () => {
       });
     }
   };
+
   return (
     <Container className="d-flex justify-content-center align-items-center h-100">
       <Row>
-       
         <Col sm={7}>
           <h1 className={`${styles.heading} heading text-center mb-3`}>
             Admin Login
           </h1>
           <Form onSubmit={handleSubmit} className={styles.inputGroup}>
-            <p className={`${styles.para} text-center  mb-3`}>
+            <p className={`${styles.para} text-center mb-3`}>
               Sign in to start your session
             </p>
             <Form.Group
@@ -83,13 +91,17 @@ const Login = () => {
             >
               <Form.Control
                 className="rounded-start-pill p-2 me-2"
-                type="email"
+                type="text" // Changed to text to allow regex validation
                 name="email"
                 placeholder="Email"
                 value={authCred.email}
                 onChange={handleChange}
+                isInvalid={!!error.email} // Display error if email is invalid
               />
               <MdEmail size={50} style={{ color: "#470826" }} />
+              {/* <Form.Control.Feedback type="invalid">
+                {error.email}
+              </Form.Control.Feedback> */}
             </Form.Group>
 
             <Form.Group
@@ -103,8 +115,12 @@ const Login = () => {
                 placeholder="Password"
                 value={authCred.password}
                 onChange={handleChange}
+                isInvalid={!!error.password} // Display error if password is invalid
               />
               <MdLock size={50} style={{ color: "#470826" }} />
+              {/* <Form.Control.Feedback type="invalid">
+                {error.password}
+              </Form.Control.Feedback> */}
             </Form.Group>
 
             <Link

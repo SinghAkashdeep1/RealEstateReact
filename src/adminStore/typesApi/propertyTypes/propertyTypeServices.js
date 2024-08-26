@@ -3,7 +3,7 @@ import axios from "axios";
 //property types
 export const propertyTypesApi = async (data) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("admin_token");
       const headers = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const propertyTypesApi = async (data) => {
 //add property
 export const propertyTypeAddApi = async (data) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ export const propertyTypeAddApi = async (data) => {
 //property status
 export const propertyTypeStatusApi = async (data) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ export const propertyTypeStatusApi = async (data) => {
 //delete user
 export const propertyTypeDeleteApi = async (data) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("admin_token");
     const headers = {
       headers: {
         Authorization: `Bearer ${token}`,

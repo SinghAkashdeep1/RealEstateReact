@@ -10,39 +10,33 @@ import {
   userList, userStatus, deleteUser
 } from "../../../adminStore/userApi/userApiSlice";
 
-// Make sure to import the CSS file if it's not already imported
-import styles from './list.module.css'; // Adjust the path as necessary
+// Import CSS file
+import styles from './list.module.css'; 
 
 const List = () => {
   const navigate = useNavigate();
-  const { userLists, loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { userLists, loading, error } = useSelector((state) => state.user);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
-  const [filter, setFilter] = useState(null); // New state for filter
+  const [filter, setFilter] = useState(null); // Filter state
+  const [currentPage, setCurrentPage] = useState(1); // Pagination state
 
   useEffect(() => {
-    // Fetch the user list with delay
-    setTimeout(() => {
-      dispatch(userList());
-    }, 500);
-  }, [dispatch]);
-
-  useEffect(() => {
-    // Refetch user list when filter changes
-    dispatch(userList());
-  }, [filter, dispatch]);
+    // Fetch user list when filter or currentPage changes
+    dispatch(userList({ page: currentPage, perPage: 10 }));
+  }, [filter, currentPage, dispatch]);
 
   // Status handler
   const handleStatusUser = async (userId) => {
     await dispatch(userStatus(userId));
-    dispatch(userList());
+    dispatch(userList({ page: currentPage, perPage: 10 }));
   };
 
   // Delete handler
   const handleDeleteUser = async (userId) => {
     await dispatch(deleteUser(userId));
-    dispatch(userList());
+    dispatch(userList({ page: currentPage, perPage: 10 }));
   };
 
   const openDeleteDialog = (userId) => {
@@ -63,8 +57,15 @@ const List = () => {
 
   // Filtered user lists
   const filteredUsers = filter 
-    ? userLists?.users?.filter(user => user.type == filter)
-    : userLists?.users;
+    ? userLists?.users?.data?.filter(user => user.type == filter)
+    : userLists?.users?.data;
+
+  // Pagination handlers
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= userLists?.meta?.last_page) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   if (loading) {
     return <Spinner animation="border" />;
@@ -99,7 +100,7 @@ const List = () => {
               <FaUserPlus className="bg-transparent" /> Seller
             </Button>
             <Button
-              onClick={() => setFilter()}
+              onClick={() => setFilter(null)}
               className={`${styles.btnCustom}`}
             >
               <FaUserPlus className="bg-transparent" /> All
@@ -107,9 +108,7 @@ const List = () => {
           </Col>
           <Col className="d-flex justify-content-end">
             <Button
-              onClick={() => {
-                navigate("/admin/user/add");
-              }}
+              onClick={() => navigate("/admin/user/add")}
               className="bg-success border-0 d-flex justify-content-center"
             >
               <FaUserPlus className="mr-1 mt-1 bg-transparent " /> Add User
@@ -132,7 +131,7 @@ const List = () => {
               <tbody>
                 {filteredUsers?.map((user, index) => (
                   <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td>{index + 1 + (currentPage - 1) * 10}</td>
                     <td>{user.username}</td>
                     <td>{user.email}</td>
                     <td>
@@ -167,6 +166,22 @@ const List = () => {
                 ))}
               </tbody>
             </Table>
+            {/* Pagination Controls */}
+            <div className="pagination d-flex justify-content-between align-items-center mt-3">
+              <Button 
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </Button>
+              <span>Page {currentPage} of {userLists?.last_page}</span>
+              <Button 
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === userLists?.last_page}
+              >
+                Next
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>

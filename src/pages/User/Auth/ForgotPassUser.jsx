@@ -3,12 +3,12 @@ import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { MdAttachEmail } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword } from "../../../adminStore/authApi/authApiSlices"; // Update this path accordingly
+import { userForgotPassword } from "../../../userStore/authApi/userAuthSlices"; 
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./Login.module.css";
+import styles from "../../Admin/Auth/Login.module.css";
 import { useNavigate } from 'react-router-dom';
 
-const ForgotPassword = () => {
+const ForgotPassUser = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth); 
@@ -18,11 +18,11 @@ const ForgotPassword = () => {
     event.preventDefault();
     if (email) {
       try {
-        const response = await dispatch(forgotPassword({ email })).unwrap();
+        const response = await dispatch(userForgotPassword({ email })).unwrap();
         console.log(response.data.token, "ffg");
         if (response.data.token) {
           toast.success("Password reset link sent to your email!");
-          navigate(`/admin/reset-password/${response.data.token}`);
+          navigate(`/reset-password/${response.data.token}`);
         } else {
           toast.error('Failed to generate token');
         }
@@ -78,4 +78,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPassUser;
